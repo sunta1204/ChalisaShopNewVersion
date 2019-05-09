@@ -19,7 +19,7 @@
 	  <link href="../css/style.css" rel="stylesheet">
 </head>
 
-<body class="fixed-sn pink-skin" >
+<body class="fixed-sn pink-skin" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/91.jpg');" >
 
   <!-- Start your project here-->
   <!--Double navigation-->
@@ -44,7 +44,7 @@
                         <a class="waves-effect" style="font-size: 16px;"><i class="fas fa-store"></i>&nbsp; หน้าสินค้า (coming soon) </a>
                       </li>
                       <li class="mb-2">
-                        <a href="order/order_proof.php" class="waves-effect" style="font-size: 18px;"><i class="fas fa-shopping-basket"></i>&nbsp; ส่งหลักฐานการสั่งซื้อ </a>
+                        <a href="./order_proof.php" class="waves-effect" style="font-size: 18px;"><i class="fas fa-shopping-basket"></i>&nbsp; ส่งหลักฐานการสั่งซื้อ </a>
                       </li>
                       <li class="mb-2">
                         <a data-toggle="modal" data-target="#check_track" class="waves-effect" style="font-size: 18px;"><i class="fas fa-truck"></i>&nbsp; ตรวจสอบเลขที่พัสดุ </a>
@@ -86,7 +86,7 @@
     <!--/.Double navigation-->
 
     <!-- Modal check_track -->
-      <form action="../check_track/check_track.php" method="post">
+      <form action="../check_track/check_track.php" method="get">
         <div class="modal fade" id="check_track" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -161,7 +161,7 @@
                   <div class="col-md-12 mb-4 white-text text-center">
                     <img src="../logo/logo1.png" style="width: 20%; margin-top: 10px;">
                     <h3 class="h3-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInDown" data-wow-delay="0.3s"><strong>อัพโหลดหลักฐานการสั่งซื้อ</strong></h3>
-                    <small class="text-danger">** หมายเหตุ กรุณาสรุปยอดจำนวนเงิน + การจัดส่ง ให้เรียบร้อย ก่อนการทำรายการ **</small>            
+                    <small class="text-warning">** หมายเหตุ กรุณาสรุปยอดจำนวนเงิน + การจัดส่ง ให้เรียบร้อย ก่อนการทำรายการ **</small>            
                   </div>
                   <div class="container">
                     <div class="form-row">

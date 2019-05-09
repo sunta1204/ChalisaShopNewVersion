@@ -87,7 +87,7 @@
     <!--/.Double navigation-->
 
     <!-- Modal check_track -->
-      <form action="check_track/check_track.php" method="post">
+      <form action="check_track/check_track.php" method="get">
         <div class="modal fade" id="check_track" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -180,33 +180,35 @@
               });
           </script>
           <!-- Modal Check Track -->
-          <form action="checkTrack/check_track.php" method="post">
-            <div class="modal fade" id="checkTrackError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 24px;">เช็คเลขพัสดุ</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="form-group">
-                      <label class="text-danger" style="font-size: 20px;"> ไม่พบเลขคำสั่งซื้อ กรุณากรอกใหม่. </label>
-                    </div>
-                    <div class="form-group">
-                      <label class="text-primary" style="font-size: 20px;"> เลขคำสั่งซื้อของท่าน : </label>
-                      <input type="text" name="track" placeholder="Track Number" required="" class="form-control">
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </div>
-                </div>
-              </div>
+          <form action="check_track/check_track.php" method="get">
+        <div class="modal fade" id="checkTrackError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">ตรวจสอบเลขที่พัสดุ</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body mx-3">
+            <div class="form-group">
+              <label class="text-danger" style="font-size: 24px;">ไม่พบเลขคำสั่งซื้อ กรุณากรอกใหม่อีกครั้ง.</label>
             </div>
-          </form>
+            <div class="md-form mb-5">
+              <i class="fas fa-dolly prefix pink-text"></i>
+              <input type="text" id="order_id2" name="order_id" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="order_id2">เลขคำสั่งซื้อของท่าน</label>
+            </div>
+
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-success"> <i class="fas fa-paper-plane"></i>&nbsp; ตรวจสอบ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+      </form>
       <?php } ?>
 
       <?php 

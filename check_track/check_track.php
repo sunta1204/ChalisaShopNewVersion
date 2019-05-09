@@ -2,7 +2,12 @@
 	session_start();
 	include '../connect.php';
 
-	if (!empty($_SESSION['order_id'])) { ?>
+	$stmt=$pdo->prepare("SELECT * FROM orders , address WHERE orders.order_id = ? AND orders.order_id = address.order_id GROUP BY address.order_id");
+	$stmt->bindParam(1,$_GET["order_id"]);
+	$stmt->execute();
+	$row=$stmt->fetch();
+
+	if (!empty($row["order_id"])) { ?>
 
 <!DOCTYPE html>
 <html>
@@ -19,6 +24,7 @@
 	  <link href="../css/mdb.min.css" rel="stylesheet">
 	  <!-- Your custom styles (optional) -->
 	  <link href="../css/style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 
 <body class="fixed-sn pink-skin" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/91.jpg');" >
@@ -46,7 +52,7 @@
                         <a class="waves-effect" style="font-size: 16px;"><i class="fas fa-store"></i>&nbsp; หน้าสินค้า (coming soon) </a>
                       </li>
                       <li class="mb-2">
-                        <a href="./order_proof.php" class="waves-effect" style="font-size: 18px;"><i class="fas fa-shopping-basket"></i>&nbsp; ส่งหลักฐานการสั่งซื้อ </a>
+                        <a href="../order/order_proof.php" class="waves-effect" style="font-size: 18px;"><i class="fas fa-shopping-basket"></i>&nbsp; ส่งหลักฐานการสั่งซื้อ </a>
                       </li>
                       <li class="mb-2">
                         <a data-toggle="modal" data-target="#check_track" class="waves-effect" style="font-size: 18px;"><i class="fas fa-truck"></i>&nbsp; ตรวจสอบเลขที่พัสดุ </a>
@@ -88,7 +94,7 @@
     <!--/.Double navigation-->
 
     <!-- Modal check_track -->
-      <form action="../check_track/check_track.php" method="get">
+      <form action="./check_track.php" method="post">
         <div class="modal fade" id="check_track" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -148,75 +154,61 @@
 		  </div>
 		</div>
     	</form>
-    	
-
-   <!--Main layout-->
-    <main>
+    
        <!-- Mask & flexbox options-->
-       <form action="upload_address.php" method="post" >
-         <div class="mask rgba-purple-light align-items-center waves-effect waves-light" style="margin-top: 50px;margin-bottom: 300px; border-radius: 30px;">
+            <div class="mask rgba-black-light align-items-center waves-effect waves-light" style="margin-top: 180px;margin-bottom: 300px; border-radius: 20px;">
               <!-- Content -->
               <div class="container">
                 <!--Grid row-->
                 <div class="row">
                   <!--Grid column-->
                   <div class="col-md-12 mb-4 white-text text-center">
-                    <img src="../logo/logo1.png" style="width: 20%; margin-top: 10px;">
-                    <h3 class="h3-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInDown" data-wow-delay="0.3s"><strong>ที่อยู่การจัดส่ง</strong></h3>            
-                  </div>
-                  <div class="container">
-                    <div class="form-row">
-                      <div class="col">
-                         <div class="md-form">
-                         <?php if (!empty($_SESSION["order_id"])) { ?>
-                         	<i class="fas fa-shopping-cart prefix pink-text"></i>
-							<input type="text" readonly name="order_id" class="form-control" required="" value="<?=$_SESSION['order_id']?>">
-							<label class="white-text" data-error="wrong" data-success="right" for="order_id">รหัสคำสั่งซื้อ</label>
-						<?php } elseif (empty($_SESSION["order_id"])) { ?>
-							<i class="fas fa-shopping-cart prefix pink-text"></i>
-							<input type="text" readonly name="order_id" class="form-control" required="" placeholder="รหัสคำสั่งซื้อ">
-							<label class="white-text" data-error="wrong" data-success="right" for="order_id">รหัสคำสั่งซื้อ</label>
-						<?php } ?>
-                        </div>
-                      </div>
-                      <div class="col">
-                         <div class="md-form">
-                         	<i class="fas fa-user prefix pink-text"></i>
-							             <input type="text" id="fullname" name="fullname" class="form-control white-text" required="" >
-							             <label class="white-text" data-error="wrong" data-success="right" for="fullname">ชื่อ - นามสกุล</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                    	<div class="col">
-                    		<div class="form-group white-text">
-		                   		<i class="fas fa-map-marked pink-text prefix"></i>
-          								<label for="exampleFormControlTextarea4">ที่อยู่การจัดส่ง</label>
-          								<textarea required="" name="address" class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
-          								<small>**โปรดระบุ อาคาร/ตึก,ถนน/ซอย,บ้านเลขที่,หมู่ที่,หมู่บ้าน,ตำบล,อำเภอ,จังหวัด</small>
-							           </div>
-                    	</div>
-                    	<div class="col">
-                    		<div class="md-form">
-                    			<i class="fas fa-map-marker-alt pink-text prefix"></i>
-                    			<label for="exampleFormControlTextarea5" class="white-text">รหัสไปรษณีย์</label>
-                    			<input id="exampleFormControlTextarea5" type="text" name="address_zip" required="" pattern="\d{5}" class="form-control white-text">
-                    		</div>
-                    	</div>
-                    </div>
-                    <div class="md-form white-text">
-                    	<i class="fas fa-phone pink-text prefix"></i>
-                    	<label for="phoneNumber" class="white-text">เบอร์โทรศัพท์</label>
-                    	<input id="phoneNumber" type="text" name="phoneNumber" required="" pattern="0\d{9}" class="form-control white-text">
-                    	<small>**ไม่ต้องใส่ขีด (-)</small>
-                    </div>
-                  	
-                  </div>
-                </div>
-                  </div>             
-                  <div class="col-md-12 mb-4 white-text text-center">
+                    <img src="../logo/logo1.png" style="width: 30%;margin-top: 10px;">
+                    <h3 class="h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInDown" data-wow-delay="0.3s"><strong>ข้อมูลการสั่งซื้อ</strong></h3>
                     <hr class="hr-light my-4 wow fadeInDown" data-wow-delay="0.4s">
-                    <button type="submit" class="btn btn-success wow fadeInDown" data-wow-delay="0.4s"><i class="fas fa-paper-plane"></i> Send</button>
+                    <div class="table-responsive">
+                    	<table class="table table-hover">
+	                    	<thead>
+	                    		<tr>
+	                    			<th style="font-size: 20px;">เลขที่คำสั่งซื้อ</th>
+	                    			<th style="font-size: 20px;">ชื่อ-นามสกุล</th>
+	                    			<th style="font-size: 20px;">ที่อยู่การจัดส่ง</th>
+	                    			<th style="font-size: 20px;">รหัสไปรษณีย์</th>
+	                    			<th style="font-size: 20px;">เบอร์ติดต่อ</th>
+	                    			<th style="font-size: 20px;">ประเภทการจัดส่ง</th>
+	                    			<th style="font-size: 20px;">วันที่ทำรายการ</th>
+	                    			<th style="font-size: 20px;">เลขที่พัสดุ / นัดรับ</th>
+	                    		</tr>
+	                    	</thead>
+	                    	<tbody>
+	                    		<tr>
+	                    			<td style="font-size: 16px;"><?=$row['order_id']?></td>
+	                    			<td style="font-size: 16px;"><?=$row['fullname']?></td>
+	                    			<td style="font-size: 16px;"><?=$row['address']?></td>
+	                    			<td style="font-size: 16px;"><?=$row['address_zip']?></td>
+	                    			<td style="font-size: 16px;"><?=$row['phoneNumber']?></td>
+	                    			<?php if ($row["transport"] == 1) {?>
+										<td style="font-size: 16px;"> EMS </td>
+									<?php }elseif ($row["transport"] == 2) { ?>
+										<td style="font-size: 16px;"> KERRY </td>
+									<?php }elseif ($row["transport"] == 3) {?>
+										<td style="font-size: 16px;"> นัดรับบริเวณ มข และ ระแวกใกล้เคียง </td>
+									<?php } elseif ($row['transport'] == 4) { ?>
+										<td style="font-size: 16px;"> นัดรับที่ เซนทรัลขอนแก่น </td>
+									<?php } ?>
+	                    			<td style="font-size: 16px;"><?=$row['orderDate']?></td>
+	                    			<?php if ($row['transport'] == 3 || $row['transport'] == 4) { ?>
+	                    				<td style="font-size: 16px;">รอการติดต่อกลับเพื่อนัดหมายเวลาจัดส่ง</td>
+	                    			<?php } elseif ($row['track'] == NULL) { ?>
+	                    				<td style="font-size: 16px;">รอการตรวจสอบ และ ดำเนินการ</td>
+	                    			<?php } elseif ($row['track'] != NULL) { ?>
+	                    				<td style="font-size: 16px;"><?=$row['track']?></td>
+	                    			<?php } ?>
+	                    		</tr>
+	                    	</tbody>
+	                    </table>
+                    </div>
+                    
                   </div>
                   <!--Grid column-->
                 </div>
@@ -224,9 +216,6 @@
               </div>
               <!-- Content -->
             </div>
-       </form>
-
-      
             <!-- Mask & flexbox options-->
     </main>
     <!--/Main layout-->
@@ -263,7 +252,8 @@
 </body>
 </html>
 
-<?php } else {
-		echo "<script>window.location.href='index.php';</script>";
-	}
-?>
+
+	<?php } else {
+		setcookie('checkTrackError',1,time()+10,'/');
+		echo "<script type='text/javascript'> window.location.href = '../index.php';</script>";
+	} ?>
