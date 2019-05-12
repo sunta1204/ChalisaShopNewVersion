@@ -75,7 +75,7 @@
             </div>
             <ul class="nav navbar-nav nav-flex-icons ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" data-target="#login" data-toggle="modal" ><i class="fas fa-user"></i>&nbsp; <span class="clearfix d-none d-sm-inline-block">LogIn</span></a>
+                    <a class="btn btn-pink" data-target="#login" data-toggle="modal" ><i class="fas fa-user"></i>&nbsp; <span class="clearfix d-none d-sm-inline-block">LogIn</span></a>
                 </li>    
             </ul>
         </nav>
@@ -262,16 +262,39 @@
         </button>
       </div>
     <?php } ?>
+
+    <?php 
+    if (!empty($_COOKIE["login_fail"])){ ?>
+      <script type="text/javascript">
+          $(window).on('load',function(){
+              $('#login_fail').alert('fade');
+                setTimeout(function(){
+                  $('#login_fail').alert('close');
+                }, 3000);
+            });
+            $('#login_fail').click(function(){
+              $('login_fail').alert('close');
+            });
+      </script>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" id="login_fail">
+        <center>
+          <strong>เข้าสู่ระบบโดยไม่ถูกต้อง</strong> กรุณา Login ก่อนเข้าสู่ระบบ
+        </center>       
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php } ?>
     
        <!-- Mask & flexbox options-->
-            <div class="mask rgba-black-light align-items-center waves-effect waves-light" style="margin-top: 180px;margin-bottom: 300px; border-radius: 20px;">
+            <div class="mask rgba-black-light align-items-center waves-effect waves-light" style="margin-top: 120px;margin-bottom: 200px; border-radius: 20px;">
               <!-- Content -->
               <div class="container">
                 <!--Grid row-->
                 <div class="row">
                   <!--Grid column-->
                   <div class="col-md-12 mb-4 white-text text-center">
-                    <img src="logo/logo1.png" style="width: 30%;">
+                    <img src="logo/logo1.png" style="width: 30%; margin-top: 10px;" >
                     <h1 class="h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInDown" data-wow-delay="0.3s"><strong>Welcome To Chalisa Shop</strong></h1>
                     <hr class="hr-light my-4 wow fadeInDown" data-wow-delay="0.4s">
                     <button data-target="#login" data-toggle="modal" class="btn btn-outline-white wow fadeInDown" data-wow-delay="0.4s">Log In</button>
