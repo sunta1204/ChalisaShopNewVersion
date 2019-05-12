@@ -10,9 +10,9 @@
 
 	if (!empty($user)) { 
 
-		$_SESSION["username"] = $row["member_username"];
-		$_SESSION["name"] = $row["member_name"];
-		$_SESSION["permission"] = $row["member_permission"];
+		$_SESSION["username"] = $user["member_username"];
+		$_SESSION["name"] = $user["member_name"];
+		$_SESSION["permission"] = $user["member_permission"];
 		
 
 		if ($_SESSION['permission'] == 1) {

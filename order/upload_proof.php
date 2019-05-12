@@ -35,17 +35,17 @@ include '../connect.php'; ?>
 
 	move_uploaded_file($_FILES['proofPayment']['tmp_name'], "../payment_pic/" . $image2);
 
-	$stmt2=$pdo->prepare("UPDATE orders SET proofPayment = ? WHERE order_id = ?");
+	$stmt=$pdo->prepare("UPDATE orders SET proofPayment = ? WHERE order_id = ?");
 
-	$stmt2->bindParam(1,$image2);
-	$stmt2->bindParam(2,$order_id);
+	$stmt->bindParam(1,$image2);
+	$stmt->bindParam(2,$order_id);
 	
 	$_SESSION["order_id"] = $order_id;
 
-	if($stmt2->execute()){
+	if($stmt->execute()){
 		echo "<script type='text/javascript'> window.location.href = 'form_address.php';</script>";
 	}else{
-		setcookie('order_error',1,time()+5,'/');
-		echo "<script type='text/javascript'> window.location.href = '../index.php';</script>";
+		echo "Upload fail back to Home Page";
+		echo "<a href='../index.php'> Upload Complete Goto index </a>";
 	}
 ?>
