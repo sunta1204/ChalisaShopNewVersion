@@ -409,7 +409,9 @@
 							<?php }elseif ($row['transport'] == 4) { ?>
 								<p class="card-text"> นัดรับเซนทรัล </p>
 							<?php }  ?>
-              <?php if ($row['track'] == NULL) { ?>
+              <?php if ($row['transport'] == 3 || $row['transport'] == 4) { ?>
+                
+              <?php } elseif ($row['track'] == NULL) { ?>
                 <p class="card-text text-danger">ยังไม่กรอกเลขพัสดุ</p>
               <?php } elseif ($row['track'] != NULL) { ?>
                 <p class="card-text green-text"> <?=$row['track']?> </p>
@@ -560,7 +562,9 @@
 								<div class="form-row">
 									<div class="col">
 										<div class="md-form">
-											<?php if ($order['track'] == NULL) { ?>
+                      <?php if ($order['transport'] == 3 || $order['transport'] == 4) { ?>
+                        
+                      <?php } elseif ($order['track'] == NULL) { ?>
 												<i class="fas fa-truck-moving prefix pink-text"></i>
 												<input id="track<?=$order['order_id']?>" type="text" name="track" class="form-control validate" value="<?=$order['track']?>">
 												<label for="track<?=$order['order_id']?>">เลขพัสดุ</label>

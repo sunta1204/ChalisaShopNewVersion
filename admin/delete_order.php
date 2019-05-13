@@ -23,10 +23,10 @@
 	$stmt4->bindParam(1,$_POST['order_id']);
 
 	if ($stmt3->execute() && $stmt4->execute()) {
-		setcookie('delete_order_success',1,time()+10,'/');
+		setcookie('delete_order_success',1,time()+5,'/');
 		echo "<script type='text/javascript'> window.location.href = 'admin_home.php';</script>";
 	}else {
-		setcookie('delete_order_error',1,time()+10,'/');
+		setcookie('delete_order_error',1,time()+5,'/');
 		echo "<script type='text/javascript'> window.location.href = 'admin_home.php';</script>";
 	}
 ?>
