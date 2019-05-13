@@ -495,23 +495,23 @@
 								</div>
 								<div class="form-row">
 									<div class="col-6">
-										<div class="md-form">
+										<div class="md-form form-sm">
 											<i class="fas fa-shopping-cart prefix pink-text"></i>
-											<input readonly="" type="text" name="order_id" class="form-control validate" value="<?=$order['order_id']?>">
+											<input readonly="" type="text" name="order_id" class="form-control-sm validate" value="<?=$order['order_id']?>">
 											<label> Order ID </label>
 										</div>
 									</div>
 									<div class="col-6">
-										<div class="md-form">
+										<div class="md-form form-sm">
 											<i class="fas fa-dolly-flatbed prefix pink-text"></i>
 											<?php if ($order['transport'] == 1) { ?>
-												<input readonly="" type="text" name="transport" class="form-control validate" value="EMS">
+												<input readonly="" type="text" name="transport" class="form-control-sm validate" value="EMS">
 											<?php } elseif ($order['transport'] == 2) { ?>
-												<input readonly="" type="text" name="transport" class="form-control validate" value="KERRY">
+												<input readonly="" type="text" name="transport" class="form-control-sm validate" value="KERRY">
 											<?php } elseif ($order['transport'] == 3) { ?>
-												<input readonly="" type="text" name="transport" class="form-control validate" value="นัดรับ มข./ใกล้เคียง">
+												<input readonly="" type="text" name="transport" class="form-control-sm validate" value="นัดรับ มข./ใกล้เคียง">
 											<?php } elseif ($order['transport'] == 4) { ?>
-												<input readonly="" type="text" name="transport" class="form-control validate" value="นัดรับเซนทรัล">
+												<input readonly="" type="text" name="transport" class="form-control-sm validate" value="นัดรับเซนทรัล">
 											<?php } ?>
 											<label>ประเภทการจัดส่ง</label>
 										</div>
@@ -519,9 +519,9 @@
 								</div>
                 <div class="form-row">
                   <div class="col-12">
-                    <div class="md-form">
+                    <div class="md-form form-sm">
                       <i class="fas fa-user prefix pink-text"></i>
-                      <input readonly="" type="text" name="facebookName" class="form-control validate" value="<?=$order['facebookName']?>">
+                      <input readonly="" type="text" name="facebookName" class="form-control-sm validate" value="<?=$order['facebookName']?>">
                       <label> Facebook </label>
                     </div>
                   </div>
@@ -532,50 +532,50 @@
 								</div>
 								<div class="form-row">
 									<div class="col">
-										<div class="md-form">
+										<div class="md-form form-sm">
 											<i class="fas fa-user prefix pink-text"></i>
-											<input type="text" name="fullname" readonly="" class="form-control validate" value="<?=$order['fullname']?>">
+											<input type="text" name="fullname" readonly="" class="form-control-sm validate" value="<?=$order['fullname']?>">
 											<label>ชื่อ-นามสกุล</label>
 										</div>
 									</div>
 					        <div class="col">
-                    <div class="md-form">
+                    <div class="md-form form-sm">
                       <i class="fas fa-phone prefix pink-text"></i>
-                      <input type="text" name="phoneNumber" readonly="" class="form-control validate" value="<?=$order['phoneNumber']?>">
+                      <input type="text" name="phoneNumber" readonly="" class="form-control-sm validate" value="<?=$order['phoneNumber']?>">
                       <label>เบอร์ติดต่อ</label>
                     </div>
                   </div>
 								</div>
                 <div class="form-row">
                   <div class="col-12">
-                    <div class="md-form">
+                    <div class="md-form form-sm">
                       <i class="fas fa-map-marked-alt prefix pink-text"></i>
-                      <input type="text" name="address" readonly="" class="form-control validate" value="<?=$order['address']?>">
+                      <input type="text" name="address" readonly="" class="form-control-sm validate" value="<?=$order['address']?>">
                       <label>ที่อยู่</label>
                     </div>
                   </div>
                 </div>
 								<div class="form-row">
 									<div class="col">
-										<div class="md-form">
+										<div class="md-form form-sm">
 											<i class="fas fa-map-marker-alt prefix pink-text"></i>
-											<input type="text" name="address_zip" readonly="" class="form-control validate" value="<?=$order['address_zip']?>">
+											<input type="text" name="address_zip" readonly="" class="form-control-sm validate" value="<?=$order['address_zip']?>">
 											<label>รหัสไปรษณีย์</label>
 										</div>
 									</div>
 								</div>
 								<div class="form-row">
 									<div class="col">
-										<div class="md-form">
+										<div class="md-form form-sm">
                       <?php if ($order['transport'] == 3 || $order['transport'] == 4) { ?>
                         
                       <?php } elseif ($order['track'] == NULL) { ?>
 												<i class="fas fa-truck-moving prefix pink-text"></i>
-												<input id="track<?=$order['order_id']?>" type="text" name="track" class="form-control validate" value="<?=$order['track']?>">
+												<input id="track<?=$order['order_id']?>" type="text" name="track" class="form-control-sm validate" value="<?=$order['track']?>">
 												<label for="track<?=$order['order_id']?>">เลขพัสดุ</label>
 											<?php } elseif ($order['track'] != NULL) { ?>
 												<i class="fas fa-truck-moving prefix pink-text"></i>
-												<input id="track<?=$order['order_id']?>" type="text" name="track" class="form-control validate" value="<?=$order['track']?>">
+												<input id="track<?=$order['order_id']?>" type="text" name="track" class="form-control-sm validate" value="<?=$order['track']?>">
 												<label for="track<?=$order['order_id']?>">เลขพัสดุ</label>
 											<?php } ?>
 											

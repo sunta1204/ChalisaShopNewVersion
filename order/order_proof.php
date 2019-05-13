@@ -187,43 +187,44 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-4">
-                        <div class="list-group" id="list-tab" role="tablist">
+                    <ul class="list-group list-group-horizontal" id="list-tab" role="tablist">
+                        <li class="list-group-item">
                           <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home"
                             role="tab" aria-controls="home">จัดส่งทั่วประเทศ</a>
+                        </li>
+                        <li class="list-group-item">
                           <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile"
                             role="tab" aria-controls="profile">นัดรับบริเวณพื้นที่จังหวัดขอนแก่น (ส่งฟรี)</a>
-                        </div>
-                      </div>
-                      <div class="col-8">
-                        <div class="tab-content" id="nav-tabContent">
+                        </li>
+                      </ul>
+                    <div class="form-row d-flex justify-content-center">
+                      <div class="tab-content" id="nav-tabContent">
                           <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                            <div class="form-inline">
-                              <div class="col">
-                                <div class="form-check btn btn-outline-white">
+                            <div class="form-row ">
+                              <div class="col-auto">
+                                <div class="form-check btn btn-white">
                                   <input type="radio" class="form-check-input" id="transport1" name="transport" value="1" required="">
                                   <label class="form-check-label " for="transport1" style="font-size: 18px;"> EMS + 50 บาท</label>
                                 </div>
                               </div>
-                              <div class="col">
-                                <div class="form-check  btn btn-outline-white">
+                              <div class="col-auto">
+                                <div class="form-check  btn btn-white">
                                   <input type="radio" class="form-check-input" id="transport2" name="transport" value="2" required="">
                                   <label class="form-check-label " for="transport2" style="font-size: 18px;">KERRY + 60 บาท</label>
                                 </div>
                               </div>
-                              </div>
+                            </div>
                           </div>
                           <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-                            <div class="form-inline">
+                            <div class="form-row">
                               <div class="col-auto">
-                                <div class="form-check btn btn-outline-white">
+                                <div class="form-check btn btn-white">
                                   <input type="radio" class="form-check-input" id="transport3" name="transport" value="3" required="">
                                   <label class="form-check-label " for="transport3" style="font-size: 16px;">มหาวิทยาลัยขอนแก่น และ ระแวกใกล้เคียง</label>
                                 </div>
                               </div>
                               <div class="col-auto">
-                                <div class="form-check  btn btn-outline-white">
+                                <div class="form-check  btn btn-white">
                                   <input type="radio" class="form-check-input" id="transport4" name="transport" value="4" required="">
                                   <label class="form-check-label " for="transport4" style="font-size: 18px;">เซนทรัลขอนแก่น</label>
                                 </div>
@@ -231,7 +232,6 @@
                             </div>
                           </div>
                         </div>
-                      </div>
                     </div>
                     <div class="md-form">
                         <button style="font-size: 16px;" class="btn btn-primary btn-block" type="button" data-toggle="modal" data-target="#qrcode"><i class="fas fa-university"></i> เลขที่บัญชี</button>
