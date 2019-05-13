@@ -39,7 +39,7 @@
     
 </head>
 
-<body class="fixed-sn pink-skin" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/91.jpg');" >
+<body class="fixed-sn pink-skin lady-lips-gradient">
 
   <!-- Start your project here-->
   <!--Double navigation-->
@@ -380,7 +380,7 @@
  
               <!-- Content -->
               <div class="container" style="margin-top: 30px;">
-              	<div class="form-inline d-flex ">
+              	<div class="form-inline d-flex justify-content-center">
               		<?php  
               		$stmt=$pdo->prepare("SELECT * FROM orders , address WHERE orders.order_id = address.order_id GROUP BY address.order_id ORDER BY orders.orderDate DESC");
               		$stmt->execute();
@@ -392,7 +392,7 @@
 					    <!--Card image-->
 					    <div class="view view-cascade overlay">
                 <a type="button" class="waves-effect waves-light" data-target="#order_detail<?=$row['order_id']?>" data-toggle="modal">
-                  <img style="max-width: 300px;max-height: 150px; margin-right: auto;margin-left: auto;" class="card-img-top " src="../payment_pic/<?=$row['proofPayment']?>" >
+                  <img style="max-width: 300px;max-height: 250px; margin-right: auto;margin-left: auto;" class="card-img-top " src="../payment_pic/<?=$row['proofPayment']?>" >
                 </a>	      
 					    </div>
 					    <!--Card content-->
@@ -494,36 +494,39 @@
 									<label class="pink-text" style="font-size: 20px;"> รายละเอียด </label>
 								</div>
 								<div class="form-row">
-									<div class="col-auto">
+									<div class="col-6">
 										<div class="md-form">
 											<i class="fas fa-shopping-cart prefix pink-text"></i>
 											<input readonly="" type="text" name="order_id" class="form-control validate" value="<?=$order['order_id']?>">
 											<label> Order ID </label>
 										</div>
 									</div>
-									<div class="col">
-										<div class="md-form">
-											<i class="fas fa-user prefix pink-text"></i>
-											<input readonly="" type="text" name="facebookName" class="form-control validate" value="<?=$order['facebookName']?>">
-											<label> Facebook </label>
-										</div>
-									</div>
-									<div class="col-auto">
+									<div class="col-6">
 										<div class="md-form">
 											<i class="fas fa-dolly-flatbed prefix pink-text"></i>
 											<?php if ($order['transport'] == 1) { ?>
-												<input type="text" name="transport" class="form-control validate" value="EMS">
+												<input readonly="" type="text" name="transport" class="form-control validate" value="EMS">
 											<?php } elseif ($order['transport'] == 2) { ?>
-												<input type="text" name="transport" class="form-control validate" value="KERRY">
+												<input readonly="" type="text" name="transport" class="form-control validate" value="KERRY">
 											<?php } elseif ($order['transport'] == 3) { ?>
-												<input type="text" name="transport" class="form-control validate" value="นัดรับ มข./ใกล้เคียง">
+												<input readonly="" type="text" name="transport" class="form-control validate" value="นัดรับ มข./ใกล้เคียง">
 											<?php } elseif ($order['transport'] == 4) { ?>
-												<input type="text" name="transport" class="form-control validate" value="นัดรับเซนทรัล">
+												<input readonly="" type="text" name="transport" class="form-control validate" value="นัดรับเซนทรัล">
 											<?php } ?>
 											<label>ประเภทการจัดส่ง</label>
 										</div>
 									</div>
 								</div>
+                <div class="form-row">
+                  <div class="col-12">
+                    <div class="md-form">
+                      <i class="fas fa-user prefix pink-text"></i>
+                      <input readonly="" type="text" name="facebookName" class="form-control validate" value="<?=$order['facebookName']?>">
+                      <label> Facebook </label>
+                    </div>
+                  </div>
+                  
+                </div>
 								<div class="form-group">
 									<label class="pink-text" style="font-size: 20px;">ที่อยู่การจัดส่ง</label>
 								</div>
@@ -535,27 +538,29 @@
 											<label>ชื่อ-นามสกุล</label>
 										</div>
 									</div>
-									<div class="col">
-										<div class="md-form">
-											<i class="fas fa-map-marked-alt prefix pink-text"></i>
-											<input type="text" name="address" readonly="" class="form-control validate" value="<?=$order['address']?>">
-											<label>ที่อยู่</label>
-										</div>
-									</div>
+					        <div class="col">
+                    <div class="md-form">
+                      <i class="fas fa-phone prefix pink-text"></i>
+                      <input type="text" name="phoneNumber" readonly="" class="form-control validate" value="<?=$order['phoneNumber']?>">
+                      <label>เบอร์ติดต่อ</label>
+                    </div>
+                  </div>
 								</div>
+                <div class="form-row">
+                  <div class="col-12">
+                    <div class="md-form">
+                      <i class="fas fa-map-marked-alt prefix pink-text"></i>
+                      <input type="text" name="address" readonly="" class="form-control validate" value="<?=$order['address']?>">
+                      <label>ที่อยู่</label>
+                    </div>
+                  </div>
+                </div>
 								<div class="form-row">
 									<div class="col">
 										<div class="md-form">
 											<i class="fas fa-map-marker-alt prefix pink-text"></i>
 											<input type="text" name="address_zip" readonly="" class="form-control validate" value="<?=$order['address_zip']?>">
 											<label>รหัสไปรษณีย์</label>
-										</div>
-									</div>
-									<div class="col">
-										<div class="md-form">
-											<i class="fas fa-phone prefix pink-text"></i>
-											<input type="text" name="phoneNumber" readonly="" class="form-control validate" value="<?=$order['phoneNumber']?>">
-											<label>เบอร์ติดต่อ</label>
 										</div>
 									</div>
 								</div>

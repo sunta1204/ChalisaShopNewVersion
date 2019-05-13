@@ -19,7 +19,7 @@
 	  <link href="../css/style.css" rel="stylesheet">
 </head>
 
-<body class="fixed-sn pink-skin" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/91.jpg');" >
+<body class="fixed-sn pink-skin lady-lips-gradient" >
 
   <!-- Start your project here-->
   <!--Double navigation-->
@@ -159,7 +159,7 @@
                 <div class="row">
                   <!--Grid column-->
                   <div class="col-md-12 mb-4 white-text text-center">
-                    <img src="../logo/logo1.png" style="width: 20%; margin-top: 10px;">
+                    <img src="../logo/logo1.png" style="width: 40%; margin-top: 10px;">
                     <h3 class="h3-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInDown" data-wow-delay="0.3s"><strong>อัพโหลดหลักฐานการสั่งซื้อ</strong></h3>
                     <small class="text-warning">** หมายเหตุ กรุณาสรุปยอดจำนวนเงิน + การจัดส่ง ให้เรียบร้อย ก่อนการทำรายการ **</small>            
                   </div>
@@ -188,7 +188,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-3">
+                      <div class="col-4">
                         <div class="list-group" id="list-tab" role="tablist">
                           <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home"
                             role="tab" aria-controls="home">จัดส่งทั่วประเทศ</a>
@@ -196,7 +196,7 @@
                             role="tab" aria-controls="profile">นัดรับบริเวณพื้นที่จังหวัดขอนแก่น (ส่งฟรี)</a>
                         </div>
                       </div>
-                      <div class="col-9">
+                      <div class="col-8">
                         <div class="tab-content" id="nav-tabContent">
                           <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                             <div class="form-inline">
@@ -216,13 +216,13 @@
                           </div>
                           <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
                             <div class="form-inline">
-                              <div class="col">
+                              <div class="col-auto">
                                 <div class="form-check btn btn-outline-white">
                                   <input type="radio" class="form-check-input" id="transport3" name="transport" value="3" required="">
                                   <label class="form-check-label " for="transport3" style="font-size: 16px;">มหาวิทยาลัยขอนแก่น และ ระแวกใกล้เคียง</label>
                                 </div>
                               </div>
-                              <div class="col">
+                              <div class="col-auto">
                                 <div class="form-check  btn btn-outline-white">
                                   <input type="radio" class="form-check-input" id="transport4" name="transport" value="4" required="">
                                   <label class="form-check-label " for="transport4" style="font-size: 18px;">เซนทรัลขอนแก่น</label>

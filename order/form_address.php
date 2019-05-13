@@ -21,7 +21,7 @@
 	  <link href="../css/style.css" rel="stylesheet">
 </head>
 
-<body class="fixed-sn pink-skin" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/91.jpg');" >
+<body class="fixed-sn pink-skin lady-lips-gradient" >
 
   <!-- Start your project here-->
   <!--Double navigation-->
