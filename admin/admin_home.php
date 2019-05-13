@@ -36,6 +36,7 @@
 	  <!-- Your custom styles (optional) -->
 	  <link href="../css/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    
 </head>
 
 <body class="fixed-sn pink-skin" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/91.jpg');" >
@@ -198,7 +199,8 @@
 						</button>
 					</div>
 			<?php } ?>
-		<?php 
+
+		  <?php 
 				if (!empty($_COOKIE["delete_success"])){ ?>
 					<script type="text/javascript">
 		    			$(window).on('load',function(){
@@ -283,10 +285,102 @@
       </form>
       <?php } ?>
 
+      <?php 
+        if (!empty($_COOKIE["add_track_success"])){ ?>
+          <script type="text/javascript">
+              $(window).on('load',function(){
+                  $('#add_track_success').alert('fade');
+                    setTimeout(function(){
+                      $('#add_track_success').alert('close');
+                    }, 3000);
+                });
+                $('#add_track_success').click(function(){
+                  $('add_track_success').alert('close');
+                });
+          </script>
+          <div class="alert alert-success alert-dismissible fade show" role="alert" id="add_track_success">
+            <center>
+              <strong>Add Track Success!</strong> เพิ่มเลขที่พัสดุสำเร็จ.
+            </center>       
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      <?php } ?>
+
+      <?php 
+        if (!empty($_COOKIE["add_track_error"])){ ?>
+          <script type="text/javascript">
+              $(window).on('load',function(){
+                  $('#add_track_error').alert('fade');
+                    setTimeout(function(){
+                      $('#add_track_error').alert('close');
+                    }, 3000);
+                });
+                $('#add_track_error').click(function(){
+                  $('add_track_error').alert('close');
+                });
+          </script>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" id="add_track_error">
+            <center>
+              <strong>Add Track Error!</strong> เพิ่มเลขที่พัสดุไม่สำเร็จ กรุณาลองใหม่อีกครั้ง.
+            </center>       
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      <?php } ?>
+
+      <?php 
+        if (!empty($_COOKIE["delete_order_success"])){ ?>
+          <script type="text/javascript">
+              $(window).on('load',function(){
+                  $('#delete_order_success').alert('fade');
+                    setTimeout(function(){
+                      $('#delete_order_success').alert('close');
+                    }, 3000);
+                });
+                $('#delete_order_success').click(function(){
+                  $('delete_order_success').alert('close');
+                });
+          </script>
+          <div class="alert alert-success alert-dismissible fade show" role="alert" id="delete_order_success">
+            <center>
+              <strong>Delete Order Success!</strong>
+            </center>       
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      <?php } ?>
+
+      <?php 
+        if (!empty($_COOKIE["delete_order_error"])){ ?>
+          <script type="text/javascript">
+              $(window).on('load',function(){
+                  $('#delete_order_error').alert('fade');
+                    setTimeout(function(){
+                      $('#delete_order_error').alert('close');
+                    }, 3000);
+                });
+                $('#delete_order_error').click(function(){
+                  $('delete_order_error').alert('close');
+                });
+          </script>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" id="delete_order_error">
+            <center>
+              <strong>Delete Order Error!</strong>กรุณาลองใหม่อีกครั้ง.
+            </center>       
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      <?php } ?>
+
  
               <!-- Content -->
               <div class="container" style="margin-top: 30px;">
-              	<div class="form-inline d-flex justify-content-center">
+              	<div class="form-inline d-flex ">
               		<?php  
               		$stmt=$pdo->prepare("SELECT * FROM orders , address WHERE orders.order_id = address.order_id GROUP BY address.order_id ORDER BY orders.orderDate DESC");
               		$stmt->execute();
@@ -297,7 +391,9 @@
 					  <div class="card card-cascade narrower mb-4">
 					    <!--Card image-->
 					    <div class="view view-cascade overlay">
-					      <img style="max-width: 300px; margin-right: auto;margin-left: auto;" class="card-img-top " src="../payment_pic/<?=$row['proofPayment']?>" >
+                <a type="button" class="waves-effect waves-light" data-target="#order_detail<?=$row['order_id']?>" data-toggle="modal">
+                  <img style="max-width: 300px;max-height: 150px; margin-right: auto;margin-left: auto;" class="card-img-top " src="../payment_pic/<?=$row['proofPayment']?>" >
+                </a>	      
 					    </div>
 					    <!--Card content-->
 					    <div class="card-body card-body-cascade" style="margin-top: 5px;">
@@ -313,6 +409,11 @@
 							<?php }elseif ($row['transport'] == 4) { ?>
 								<p class="card-text"> นัดรับเซนทรัล </p>
 							<?php }  ?>
+              <?php if ($row['track'] == NULL) { ?>
+                <p class="card-text text-danger">ยังไม่กรอกเลขพัสดุ</p>
+              <?php } elseif ($row['track'] != NULL) { ?>
+                <p class="card-text green-text"> <?=$row['track']?> </p>
+              <?php } ?>
 							<p class="card-text form-inline">
 								<button class="btn btn-primary btn-sm" data-target="#order_detail<?=$row['order_id']?>" data-toggle="modal"><i class="fas fa-info"></i>&nbsp; รายละเอียด</button> 
 							    <button class="btn btn-outline-danger btn-sm" data-target="#delete_order<?=$row['order_id']?>" data-toggle="modal"><i class="fas fa-trash"></i>&nbsp; ลบรายการ </button>
@@ -347,39 +448,45 @@
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>		
 							</div>
 							<div class="modal-body">
-								<!-- carousel pic -->
-								<div id="carouselExampleFade" class="carousel slide carousel-fade mb-4" data-ride="carousel" style="background-color: #4B515D;">
-									<div class="carousel-inner">
-										<div class="carousel-item active">
-											<img class="d-block" style="width: 80%; margin-left: auto;margin-right: auto;" src="../payment_pic/<?=$order['proofPayment']?>" >
-											<div class="carousel-caption">
-										        <h4 class="h3-responsive pink-text">หลักฐานการโอนเงิน</h3>
-										    </div>
-										</div>
-										<?php 
-											$stmt5=$pdo->prepare("SELECT proofConfirm FROM orders WHERE order_id = ?");
-											$stmt5->bindParam(1,$order['order_id']);
-											$stmt5->execute();
-											while ($proof_pic=$stmt5->fetch()) { ?>
-												<div class="carousel-item">
-													<img class="d-block" style="width: 50%; margin-left: auto;margin-right: auto;" src="../proof_pic/<?=$proof_pic['proofConfirm']?>" >
-													<div class="carousel-caption">
-										        		<h4 class="h3-responsive pink-text">หลักฐานการจอง</h3>
-										    		</div>
-												</div>
-											<?php }
-										?>	
-									</div>
-									<a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
-										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-										<span class="sr-only ">Previous</span>
-									</a>
-									<a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
-										<span class="carousel-control-next-icon" aria-hidden="true"></span>
-										<span class="sr-only ">Next</span>
-									</a>
-								</div>	
-								<!-- carousel pic -->
+					 			<div class="row">
+                  <div class="col-md-12 text-center">
+                    <?php 
+                      $stmt5=$pdo->prepare("SELECT order_id , proofConfirm FROM orders WHERE order_id =?");
+                      $stmt5->bindParam(1,$order['order_id']);
+                      $stmt5->execute();
+                      while ($order_pic=$stmt5->fetch()) { ?>
+                        <a class="mr-sm-2" type="button" data-target="#order_pic<?=$order_pic['order_id']?>" data-toggle="modal"> <img src="../proof_pic/<?=$order_pic['proofConfirm']?>" style="max-height: 200px;max-width: 200px;"> </a>
+
+                      <!-- Modal proof_pic -->
+                      <div class="modal fade" id="order_pic<?=$order_pic['order_id']?>" tabindex="-2" role="dialog" aria-labelledby="myModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-md" role="document">
+                          <div class="modal-content">
+                            <div class="modal-body">
+                              <img style="max-width: 100%;" src="../proof_pic/<?=$order_pic['proofConfirm']?>">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--  Modal proof_pic -->
+                      <?php }
+                    ?>
+                    <a class="mr-sm-2" type="button" data-target="#payment_pic<?=$order['order_id']?>" data-toggle="modal"> <img src="../payment_pic/<?=$order['proofPayment']?>" style="max-height: 200px;max-width: 200px;"></a>
+                    <!-- Modal proof_pic -->
+                      <div class="modal fade" id="payment_pic<?=$order['order_id']?>" tabindex="-2" role="dialog" aria-labelledby="myModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-md" role="document">
+                          <div class="modal-content">
+                            <div class="modal-body">
+                              <img style="max-width: 100%;" src="../payment_pic/<?=$order['proofPayment']?>">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--  Modal proof_pic -->
+                  </div>  
+                </div>
+                
 								<!-- Detail -->
 								<div class="form-group">
 									<label class="pink-text" style="font-size: 20px;"> รายละเอียด </label>
@@ -455,12 +562,12 @@
 										<div class="md-form">
 											<?php if ($order['track'] == NULL) { ?>
 												<i class="fas fa-truck-moving prefix pink-text"></i>
-												<input id="track" type="text" name="track" class="form-control validate" value="<?=$order['track']?>">
-												<label for="track">เลขพัสดุ</label>
+												<input id="track<?=$order['order_id']?>" type="text" name="track" class="form-control validate" value="<?=$order['track']?>">
+												<label for="track<?=$order['order_id']?>">เลขพัสดุ</label>
 											<?php } elseif ($order['track'] != NULL) { ?>
 												<i class="fas fa-truck-moving prefix pink-text"></i>
-												<input id="track" type="text" name="track" class="form-control validate" value="<?=$order['track']?>">
-												<label for="track">เลขพัสดุ</label>
+												<input id="track<?=$order['order_id']?>" type="text" name="track" class="form-control validate" value="<?=$order['track']?>">
+												<label for="track<?=$order['order_id']?>">เลขพัสดุ</label>
 											<?php } ?>
 											
 										</div>
@@ -470,7 +577,7 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fas fa-times-circle"></i>&nbsp; Close</button>
-        						<button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i>&nbsp; Save changes</button>    					
+        						<button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i>&nbsp; Save changes</button>
 							</div>
 						</div>
 					</div>
@@ -489,6 +596,7 @@
 						        </button>
 							</div>
 							<div class="modal-body">
+                <input type="hidden" name="order_id" value="<?=$order['order_id']?>">
 								<label style="font-size: 20px;"> คุณแน่ใจหรือไม่ที่จะลบรายการ : </label> <label class="red-text" style="font-size: 24px;"><?=$order['order_id']?></label>
 							</div>
 							<div class="modal-footer">
