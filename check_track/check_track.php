@@ -154,9 +154,11 @@
 		  </div>
 		</div>
     	</form>
+
+      <main>
     
        <!-- Mask & flexbox options-->
-            <div class="mask rgba-black-light align-items-center waves-effect waves-light" style="margin-top: 180px;margin-bottom: 300px; border-radius: 20px;">
+            <div class="mask rgba-black-light align-items-center waves-effect waves-light" style="margin-top: 50px;margin-bottom: 300px; border-radius: 30px;">
               <!-- Content -->
               <div class="container">
                 <!--Grid row-->
@@ -166,51 +168,87 @@
                     <img src="../logo/logo1.png" style="width: 30%;margin-top: 10px;">
                     <h3 class="h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInDown" data-wow-delay="0.3s"><strong>ข้อมูลการสั่งซื้อ</strong></h3>
                     <hr class="hr-light my-4 wow fadeInDown" data-wow-delay="0.4s">
-                    <div class="table-responsive">
-                    	<table class="table table-hover">
-	                    	<thead>
-	                    		<tr>
-	                    			<th style="font-size: 20px;">เลขที่คำสั่งซื้อ</th>
-	                    			<th style="font-size: 20px;">ชื่อ-นามสกุล</th>
-	                    			<th style="font-size: 20px;">ที่อยู่การจัดส่ง</th>
-	                    			<th style="font-size: 20px;">รหัสไปรษณีย์</th>
-	                    			<th style="font-size: 20px;">เบอร์ติดต่อ</th>
-	                    			<th style="font-size: 20px;">ประเภทการจัดส่ง</th>
-	                    			<th style="font-size: 20px;">วันที่ทำรายการ</th>
-	                    			<th style="font-size: 20px;">เลขที่พัสดุ / นัดรับ</th>
-	                    		</tr>
-	                    	</thead>
-	                    	<tbody>
-	                    		<tr>
-	                    			<td style="font-size: 16px;"><?=$row['order_id']?></td>
-	                    			<td style="font-size: 16px;"><?=$row['fullname']?></td>
-	                    			<td style="font-size: 16px;"><?=$row['address']?></td>
-	                    			<td style="font-size: 16px;"><?=$row['address_zip']?></td>
-	                    			<td style="font-size: 16px;"><?=$row['phoneNumber']?></td>
-	                    			<?php if ($row["transport"] == 1) {?>
-										<td style="font-size: 16px;"> EMS </td>
-									<?php }elseif ($row["transport"] == 2) { ?>
-										<td style="font-size: 16px;"> KERRY </td>
-									<?php }elseif ($row["transport"] == 3) {?>
-										<td style="font-size: 16px;"> นัดรับบริเวณ มข และ ระแวกใกล้เคียง </td>
-									<?php } elseif ($row['transport'] == 4) { ?>
-										<td style="font-size: 16px;"> นัดรับที่ เซนทรัลขอนแก่น </td>
-									<?php } ?>
-	                    			<td style="font-size: 16px;"><?=$row['orderDate']?></td>
-	                    			<?php if ($row['transport'] == 3 || $row['transport'] == 4) { ?>
-	                    				<td style="font-size: 16px;">รอการติดต่อกลับเพื่อนัดหมายเวลาจัดส่ง</td>
-	                    			<?php } elseif ($row['track'] == NULL) { ?>
-	                    				<td style="font-size: 16px;">รอการตรวจสอบ และ ดำเนินการ</td>
-	                    			<?php } elseif ($row['track'] != NULL) { ?>
-	                    				<td style="font-size: 16px;"><?=$row['track']?></td>
-	                    			<?php } ?>
-	                    		</tr>
-	                    	</tbody>
-	                    </table>
-                    </div>
-                    
                   </div>
-                  <!--Grid column-->
+                  <div class="container">
+                    <div class="form-row">
+                      <div class="col">
+                        <div class="md-form form-sm">
+                          <i class="fas fa-shopping-cart prefix pink-text"></i>
+                          <input class="form-control-sm text-white" type="text" name="order_id" readonly="" value="<?=$row['order_id']?>">
+                          <label class="text-white">เลขที่คำสั่งซื้อ</label>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="md-form form-sm">
+                          <i class="fas fa-user prefix pink-text"></i>
+                          <input class="form-control-sm text-white" type="text" name="fullname" readonly="" value="<?=$row['fullname']?>">
+                          <label class="text-white">ชื่อ-นามสกุล</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col">
+                        <div class="md-form form-sm">
+                          <i class="fas fa-map-marked-alt prefix pink-text"></i>
+                          <input class="form-control-sm text-white" type="text" name="address" readonly="" value="<?=$row['address']?>">
+                          <label class="text-white">ที่อยู่</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col">
+                        <div class="md-form form-sm">
+                          <i class="fas fa-map-marker-alt prefix pink-text"></i>
+                          <input class="form-control-sm text-white" type="text" name="address_zip" readonly="" value="<?=$row['address_zip']?>">
+                          <label class="text-white">รหัสไปรษณีย์</label>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="md-form form-sm">
+                          <i class="fas fa-phone prefix pink-text"></i>
+                          <input class="form-control-sm text-white" type="text" name="phoneNumber" readonly="" value="<?=$row['phoneNumber']?>">
+                          <label class="text-white">เบอร์โทรติดต่อ</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col">
+                        <div class="md-form form-sm">
+                          <i class="fas fa-truck-moving prefix pink-text"></i>
+                          <?php if ($row['transport'] == 1) { ?>
+                            <input class="form-control-sm text-white" type="text" name="transport" readonly="" value="EMS">
+                          <?php } elseif ($row['transport'] == 2) { ?>
+                            <input class="form-control text-white" type="text" name="transport" readonly="" value="KERRY">
+                          <?php } elseif ($row['transport'] == 3) { ?>
+                            <input class="form-control-sm text-white" type="text" name="transport" readonly="" value="นัดรับ มข./กังสดาล/หลังมอ">
+                          <?php } elseif ($row['transport'] == 4) { ?>
+                            <input class="form-control-sm text-white" type="text" name="transport" readonly="" value="นัดรับ เซนทรัลขอนแก่น">
+                          <?php } ?>
+                          <label class="text-white">ประเภทการจัดส่ง</label>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="md-form form-sm">
+                          <i class="fas fa-clock prefix pink-text"></i>
+                          <input class="form-control-sm text-white" type="text" name="orderDate" readonly="" value="<?=$row['orderDate']?>">
+                          <label class="text-white">วันที่ทำรายการ</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row mb-4">
+                      <div class="col">
+                        <div class="md-form form-sm">
+                          <i class="fas fa-truck-loading prefix pink-text"></i>
+                          <?php if ($row['transport'] == 1 || $row['transport'] == 2) { ?>
+                            <input class="form-control-sm text-white" type="text" name="track" readonly="" value="<?=$row['track']?>">
+                          <?php } elseif ($row['transport'] == 3 || $row['transport'] == 4) { ?>
+                            <input class="form-control-sm text-white" type="text" name="track" readonly="" value="รอการติดต่อกลับเพื่อนัดหมายเวลาจัดส่ง">
+                          <?php } ?>
+                          <label class="text-white">เลขพัสดุ/นัดรับ</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>   
                 </div>
                 <!--Grid row-->
               </div>

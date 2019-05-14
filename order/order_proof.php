@@ -168,12 +168,14 @@
                       <div class="col">
                          <div class="md-form">
                           <i class="fas fa-user prefix pink-text"></i>
-                          <input type="text" id="facebookName" name="facebookName" class="form-control validate white-text">
+                          <input required="" type="text" id="facebookName" name="facebookName" class="form-control validate white-text">
                           <label class="white-text" data-error="wrong" data-success="right" for="facebookName">Facebook Name</label>
                         </div>
                       </div>
-                      <div class="col">
-                         <div class="md-form">
+                    </div>
+                    <div class="form-row">
+                      <div class="col-12">
+                        <div class="md-form">
                           <div class="file-field">
                             <div class="btn btn-pink btn-md float-left">
                               <span>Choose file</span>
@@ -201,13 +203,13 @@
                       <div class="tab-content" id="nav-tabContent">
                           <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                             <div class="form-row ">
-                              <div class="col-auto">
+                              <div class="col">
                                 <div class="form-check btn btn-white">
                                   <input type="radio" class="form-check-input" id="transport1" name="transport" value="1" required="">
                                   <label class="form-check-label " for="transport1" style="font-size: 18px;"> EMS + 50 บาท</label>
                                 </div>
                               </div>
-                              <div class="col-auto">
+                              <div class="col">
                                 <div class="form-check  btn btn-white">
                                   <input type="radio" class="form-check-input" id="transport2" name="transport" value="2" required="">
                                   <label class="form-check-label " for="transport2" style="font-size: 18px;">KERRY + 60 บาท</label>
@@ -217,13 +219,13 @@
                           </div>
                           <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
                             <div class="form-row">
-                              <div class="col-auto">
+                              <div class="col">
                                 <div class="form-check btn btn-white">
                                   <input type="radio" class="form-check-input" id="transport3" name="transport" value="3" required="">
-                                  <label class="form-check-label " for="transport3" style="font-size: 16px;">มหาวิทยาลัยขอนแก่น และ ระแวกใกล้เคียง</label>
+                                  <label class="form-check-label " for="transport3" style="font-size: 16px;">มข./กังสดาล/หลังมอ(โนนม่วง)</label>
                                 </div>
                               </div>
-                              <div class="col-auto">
+                              <div class="col">
                                 <div class="form-check  btn btn-white">
                                   <input type="radio" class="form-check-input" id="transport4" name="transport" value="4" required="">
                                   <label class="form-check-label " for="transport4" style="font-size: 18px;">เซนทรัลขอนแก่น</label>
@@ -304,7 +306,7 @@
                   <div class="form-inline">
                     <div class="col text-center">
                       <div style="text-align: center;">
-                        <img src="../img1/bank2.png" style="max-height: 400px; max-width: 550px;"><br><br>
+                        <img src="../img1/bank2.png" style="max-width: 200px;"><br><br>
                         -------------------------------------------
                         <br><br>                  
                         <label class="text-primary" style="font-size: 20px;"> เลขที่บัญชี : 307-2-88822-6 </label><br>
