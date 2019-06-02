@@ -17,8 +17,7 @@
 	 	$email["member_email"] = $row2["member_email"];
 	 } 
 
-	$stmt3=$pdo->prepare("SELECT * FROM orders , address WHERE orders.order_id = address.order_id GROUP BY address.order_id");
-	$stmt3->execute();
+	
 
 ?>
 <html>
@@ -505,7 +504,7 @@
               <div class="container" style="margin-top: 30px;">
               	<div class="form-inline d-flex justify-content-center">
               		<?php  
-              		$stmt=$pdo->prepare("SELECT * FROM orders , address WHERE orders.order_id = address.order_id GROUP BY address.order_id ORDER BY orders.orderDate DESC");
+              		$stmt=$pdo->prepare("SELECT * FROM addorder GROUP BY order_id ORDER BY order_date DESC");
               		$stmt->execute();
               		while ($row=$stmt->fetch()) { ?>
 	                <!-- Card deck -->
@@ -515,37 +514,21 @@
 					    <!--Card image-->
 					    <div class="view view-cascade overlay">
                 <a type="button" class="waves-effect waves-light" data-target="#order_detail<?=$row['order_id']?>" data-toggle="modal">
-                  <img style="max-width: 300px;max-height: 250px; margin-right: auto;margin-left: auto;" class="card-img-top " src="../payment_pic/<?=$row['proofPayment']?>" >
+                  <img style="max-width: 300px;max-height: 250px; margin-right: auto;margin-left: auto;" class="card-img-top " src="../order_pic/<?=$row['order_pic']?>" >
                 </a>	      
 					    </div>
 					    <!--Card content-->
 					    <div class="card-body card-body-cascade" style="margin-top: 5px;">
 					    	<h5 class="pink-text font-weight-bold card-title">คำสั่งซื้อ : <?=$row['order_id']?></h5>
-					    	<p class="card-text"> <?=$row['fullname']?> </p>
-					    	<p class="card-text"> <?=$row['phoneNumber']?> </p>
-					     	<?php if ($row['transport'] == 1) { ?>
-								<p class="card-text"> EMS </p>
-							<?php } elseif ($row['transport']== 2) { ?>
-							    <p class="card-text"> Kerry </p>
-							<?php }elseif ($row['transport'] == 3) { ?>
-							    <p class="card-text"> นัดรับ มข / ใกล้เคียง </p>
-							<?php }elseif ($row['transport'] == 4) { ?>
-								<p class="card-text"> นัดรับเซนทรัล </p>
-							<?php }  ?>
-              <?php if ($row['transport'] == 3 || $row['transport'] == 4) { ?>
-                
-              <?php } elseif ($row['track'] == NULL) { ?>
-                <p class="card-text text-danger">ยังไม่กรอกเลขพัสดุ</p>
-              <?php } elseif ($row['track'] != NULL) { ?>
-                <p class="card-text green-text"> <?=$row['track']?> </p>
-              <?php } ?>
+					    	<p class="card-text"> Facebook : <?=$row['facebook_name']?> </p>
+					    	<p class="card-text"> ยอดรวม :  <?=$row['order_price']?> </p>
 							<p class="card-text form-inline">
 								<button class="btn btn-primary btn-sm" data-target="#order_detail<?=$row['order_id']?>" data-toggle="modal"><i class="fas fa-info"></i>&nbsp; รายละเอียด</button> 
 							    <button class="btn btn-outline-danger btn-sm" data-target="#delete_order<?=$row['order_id']?>" data-toggle="modal"><i class="fas fa-trash"></i>&nbsp; ลบรายการ </button>
 							</p>
 					    </div>
 					    <div class="card-footer text-muted text-center">
-					    	<i class="far fa-clock pr-1"></i> <?=$row['orderDate']?>
+					    	<i class="far fa-clock pr-1"></i> <?=$row['order_date']?>
 					    </div>
 					  </div>
 					  <!-- Card -->
@@ -560,11 +543,11 @@
     <!--/Main layout-->
 
     <?php 
-    	$stmt4=$pdo->prepare("SELECT * FROM orders , address WHERE orders.order_id = address.order_id GROUP BY address.order_id ORDER BY orders.orderDate DESC");
+    	$stmt4=$pdo->prepare("SELECT * FROM addorder GROUP BY order_id ORDER BY order_date DESC");
     	$stmt4->execute();
     	while ($order=$stmt4->fetch()) { ?>
     	 	<!-- Modal Order Detail -->
-			<form action="edit_order.php" method="post">
+			<form action="update_order.php" method="post" enctype="multipart/form-data">
 				<div class="modal fade" aria-hidden="true" tabindex="-1" id="order_detail<?=$order['order_id']?>">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
@@ -576,11 +559,11 @@
 					 			<div class="row">
                   <div class="col-md-12 text-center">
                     <?php 
-                      $stmt5=$pdo->prepare("SELECT order_id , proofConfirm FROM orders WHERE order_id =?");
+                      $stmt5=$pdo->prepare("SELECT order_id , order_pic FROM addorder WHERE order_id =?");
                       $stmt5->bindParam(1,$order['order_id']);
                       $stmt5->execute();
                       while ($order_pic=$stmt5->fetch()) { ?>
-                        <a class="mr-sm-2" type="button" data-target="#order_pic<?=$order_pic['order_id']?>" data-toggle="modal"> <img src="../proof_pic/<?=$order_pic['proofConfirm']?>" style="max-height: 200px;max-width: 200px;"> </a>
+                        <a class="mr-sm-2" type="button" data-target="#order_pic<?=$order_pic['order_id']?>" data-toggle="modal"> <img src="../order_pic/<?=$order_pic['order_pic']?>" style="max-height: 200px;max-width: 200px;"> </a>
 
                       <!-- Modal proof_pic -->
                       <div class="modal fade" id="order_pic<?=$order_pic['order_id']?>" tabindex="-2" role="dialog" aria-labelledby="myModalLabel"
@@ -588,7 +571,7 @@
                         <div class="modal-dialog modal-md" role="document">
                           <div class="modal-content">
                             <div class="modal-body">
-                              <img style="max-width: 100%;" src="../proof_pic/<?=$order_pic['proofConfirm']?>">
+                              <img style="max-width: 100%;" src="../order_pic/<?=$order_pic['order_pic']?>">
                             </div>
                           </div>
                         </div>
@@ -596,19 +579,24 @@
                       <!--  Modal proof_pic -->
                       <?php }
                     ?>
-                    <a class="mr-sm-2" type="button" data-target="#payment_pic<?=$order['order_id']?>" data-toggle="modal"> <img src="../payment_pic/<?=$order['proofPayment']?>" style="max-height: 200px;max-width: 200px;"></a>
-                    <!-- Modal proof_pic -->
-                      <div class="modal fade" id="payment_pic<?=$order['order_id']?>" tabindex="-2" role="dialog" aria-labelledby="myModalLabel"
+                    <?php if ($order['slip_payment'] == NULL) {
+                      
+                    } elseif ($order['slip_payment'] != NULL) { ?>
+                      <a class="mr-sm-2" type="button" data-target="#slip_payment<?=$order['order_id']?>" data-toggle="modal"> <img src="../payment_pic/<?=$order['slip_payment']?>" style="max-height: 200px;max-width: 200px;"> </a>
+
+                      <!-- Modal proof_pic -->
+                      <div class="modal fade" id="slip_payment<?=$order['order_id']?>" tabindex="-2" role="dialog" aria-labelledby="myModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-md" role="document">
                           <div class="modal-content">
                             <div class="modal-body">
-                              <img style="max-width: 100%;" src="../payment_pic/<?=$order['proofPayment']?>">
+                              <img style="max-width: 100%;" src="../payment_pic/<?=$order['slip_payment']?>">
                             </div>
                           </div>
                         </div>
                       </div>
                       <!--  Modal proof_pic -->
+                    <?php } ?>       
                   </div>  
                 </div>
                 
@@ -617,26 +605,11 @@
 									<label class="pink-text" style="font-size: 20px;"> รายละเอียด </label>
 								</div>
 								<div class="form-row">
-									<div class="col-6">
+									<div class="col">
 										<div class="md-form form-sm">
 											<i class="fas fa-shopping-cart prefix pink-text"></i>
 											<input readonly="" type="text" name="order_id" class="form-control-sm validate" value="<?=$order['order_id']?>">
 											<label> Order ID </label>
-										</div>
-									</div>
-									<div class="col-6">
-										<div class="md-form form-sm">
-											<i class="fas fa-dolly-flatbed prefix pink-text"></i>
-											<?php if ($order['transport'] == 1) { ?>
-												<input readonly="" type="text" name="transport" class="form-control-sm validate" value="EMS">
-											<?php } elseif ($order['transport'] == 2) { ?>
-												<input readonly="" type="text" name="transport" class="form-control-sm validate" value="KERRY">
-											<?php } elseif ($order['transport'] == 3) { ?>
-												<input readonly="" type="text" name="transport" class="form-control-sm validate" value="นัดรับ มข./ใกล้เคียง">
-											<?php } elseif ($order['transport'] == 4) { ?>
-												<input readonly="" type="text" name="transport" class="form-control-sm validate" value="นัดรับเซนทรัล">
-											<?php } ?>
-											<label>ประเภทการจัดส่ง</label>
 										</div>
 									</div>
 								</div>
@@ -644,8 +617,8 @@
                   <div class="col-12">
                     <div class="md-form form-sm">
                       <i class="fas fa-user prefix pink-text"></i>
-                      <input readonly="" type="text" name="facebookName" class="form-control-sm validate" value="<?=$order['facebookName']?>">
-                      <label> Facebook </label>
+                      <input readonly="" type="text" name="facebook_name" id="facebook_name" class="form-control-sm validate" value="<?=$order['facebook_name']?>">
+                      <label for="facebook_name"> Facebook </label>
                     </div>
                   </div>
                   
@@ -657,15 +630,15 @@
 									<div class="col">
 										<div class="md-form form-sm">
 											<i class="fas fa-user prefix pink-text"></i>
-											<input type="text" name="fullname" readonly="" class="form-control-sm validate" value="<?=$order['fullname']?>">
-											<label>ชื่อ-นามสกุล</label>
+											<input type="text" name="cus_name" id="cus_name" class="form-control-sm validate">
+											<label for="cus_name">ชื่อ-นามสกุล</label>
 										</div>
 									</div>
 					        <div class="col">
                     <div class="md-form form-sm">
                       <i class="fas fa-phone prefix pink-text"></i>
-                      <input type="text" name="phoneNumber" readonly="" class="form-control-sm validate" value="<?=$order['phoneNumber']?>">
-                      <label>เบอร์ติดต่อ</label>
+                      <input type="text" name="cus_phone" id="cus_phone" class="form-control-sm validate">
+                      <label for="cus_phone">เบอร์ติดต่อ</label>
                     </div>
                   </div>
 								</div>
@@ -673,8 +646,8 @@
                   <div class="col-12">
                     <div class="md-form form-sm">
                       <i class="fas fa-map-marked-alt prefix pink-text"></i>
-                      <input type="text" name="address" readonly="" class="form-control-sm validate" value="<?=$order['address']?>">
-                      <label>ที่อยู่</label>
+                      <input type="text" name="cus_address" id="cus_address" class="form-control-sm validate">
+                      <label for="cus_address">ที่อยู่</label>
                     </div>
                   </div>
                 </div>
@@ -682,29 +655,39 @@
 									<div class="col">
 										<div class="md-form form-sm">
 											<i class="fas fa-map-marker-alt prefix pink-text"></i>
-											<input type="text" name="address_zip" readonly="" class="form-control-sm validate" value="<?=$order['address_zip']?>">
-											<label>รหัสไปรษณีย์</label>
+											<input type="text" name="cus_zip" id="cus_zip" class="form-control-sm validate">
+											<label for="cus_zip">รหัสไปรษณีย์</label>
 										</div>
 									</div>
 								</div>
-								<div class="form-row">
-									<div class="col">
-										<div class="md-form form-sm">
-                      <?php if ($order['transport'] == 3 || $order['transport'] == 4) { ?>
-                        
-                      <?php } elseif ($order['track'] == NULL) { ?>
-												<i class="fas fa-truck-moving prefix pink-text"></i>
-												<input id="track<?=$order['order_id']?>" type="text" name="track" class="form-control-sm validate" value="<?=$order['track']?>">
-												<label for="track<?=$order['order_id']?>">เลขพัสดุ</label>
-											<?php } elseif ($order['track'] != NULL) { ?>
-												<i class="fas fa-truck-moving prefix pink-text"></i>
-												<input id="track<?=$order['order_id']?>" type="text" name="track" class="form-control-sm validate" value="<?=$order['track']?>">
-												<label for="track<?=$order['order_id']?>">เลขพัสดุ</label>
-											<?php } ?>
-											
-										</div>
-									</div>
-								</div>
+                <div class="form-row">
+                 <label class="pink-text" style="font-size: 20px;">การชำระเงิน</label>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <div class="md-form">
+                      <i class="fas fa-dollar-sign prefix pink-text"></i>
+                      <input type="text" name="order_price" id="order_price" readonly="" class="form-control" value="<?=$order['order_price']?>">
+                      <label for="order_price">ยอดที่ต้องชำระ</label>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="md-form">
+                  <button style="font-size: 16px;" class="btn btn-primary btn-block" type="button" data-toggle="modal" data-target="#qrcode"><i class="fas fa-university"></i> เลขที่บัญชี</button>
+                </div>
+                <div class="md-form">
+                  <div class="file-field">
+                    <div class="btn btn-pink btn-md float-left">
+                      <span>Choose file</span>
+                      <input type="file" name="proofPayment" class="form-control" required="" accept="image/jpeg , image/png" accept-charset="utf-8"  class="white-text">
+                    </div>
+                    <div class="file-path-wrapper ">
+                      <input class=" file-path validate white-text" type="text" placeholder="หลักฐานการโอนเงิน">
+                    </div>
+                  </div>
+                    <small class="white-text">อัพโหลดหลักฐานการโอนเงิน (สลิปการโอน)</small>
+                </div>
 								<!-- Detail -->		
 							</div>
 							<div class="modal-footer">
@@ -715,6 +698,64 @@
 					</div>
 				</div>
 			</form>
+
+      <!-- Modal Bank -->
+      <div class="modal fade" id="qrcode" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h4 class="modal-title w-100 font-weight-bold">เลขที่บัญชี</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body mx-3">
+              <div class="row text-center">
+                <div class="col-12">
+                  <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-bank1" role="tab" aria-controls="home">บัญชีที่ 1</a>
+                    <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-bank2" role="tab" aria-controls="profile">บัญชีที่ 2</a>
+                  </div>
+                </div>
+              </div><br><br>
+              <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="list-bank1" role="tabpanel" aria-labelledby="list-home-list">
+                  <div class="form-inline">
+                    <div class="col text-center">
+                      <div style="text-align: center;">
+                        <img src="../img1/bank1.jpg" style="max-height: 400px; max-width: 550px;"><br><br>
+                        -------------------------------------------
+                        <br><br>                  
+                        <label class="text-primary" style="font-size: 20px;"> เลขที่บัญชี : 984-2-90274-9 </label><br>
+                        <label class="text-primary" style="font-size: 20px;"> ชื่อบัญชี : นางสาวชาลิสา ชัยสิทธิ์ </label><br>
+                        <label class="text-primary" style="font-size: 20px;"> ธนาคาร : กรุงไทย </label><br>
+                        -------------------------------------------<br><br>
+                      </div>   
+                    </div>  
+                  </div>
+                </div>
+                <div class="tab-pane fade " id="list-bank2" role="tabpanel" aria-labelledby="list-home-list">
+                  <div class="form-inline">
+                    <div class="col text-center">
+                      <div style="text-align: center;">
+                        <img src="../img1/bank2.png" style="max-width: 200px;"><br><br>
+                        -------------------------------------------
+                        <br><br>                  
+                        <label class="text-primary" style="font-size: 20px;"> เลขที่บัญชี : 307-2-88822-6 </label><br>
+                        <label class="text-primary" style="font-size: 20px;"> ชื่อบัญชี : นายสุริยพงศ์ มอญขาม </label><br>
+                        <label class="text-primary" style="font-size: 20px;"> ธนาคาร : กสิกรไทย </label><br>
+                        <label class="text-primary" style="font-size: 20px;"> พร้อมเพย์ : 0860896847 </label><br><br>
+                        -------------------------------------------<br><br>
+                      </div>   
+                    </div>  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 			<!-- Modal Delete Order -->
 			<form action="delete_order.php" method="post">
